@@ -1,11 +1,11 @@
 @extends('layouts.default')
 @section('content')
 <nav class="navbar navbar-default navbar-fixed-top" id="submenu">
-    <div class="container-fluid"> 
+    <div class="container-fluid">
         <ul class="nav navbar-nav">
             <li>
-                <a href="<?php echo url('produto/create');?>"><span class="glyphicon glyphicon-plus"></span> Novo</a>
-            </li> 
+                <a href="<?php echo url('produto/create'); ?>"><span class="glyphicon glyphicon-plus"></span> Novo</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -58,9 +58,9 @@
             <option value="2">Fora do Site</option>
         </select>
     </div>
-    
+
     <button type="submit" class="btn btn-default pull-right">Buscar</button>
-    
+
     <div class="form-group">
         {!! Form::text('codncm', null, ['class' => 'form-control', 'id'=> 'codncm', 'placeholder' => 'NCM', 'style'=> 'width: 450px;']) !!}
     </div>
@@ -101,14 +101,14 @@
                     <a href="{{ url("ncm/$row->codncm") }}">
                         {{ formataNcm($row->Ncm->ncm) }}
                     </a>
-                </div>    
+                </div>
                 @endif
                 @if($row->codtributacao)
                 <div class="text-muted">
                     {{ $row->Tributacao->tributacao }}
                 </div>
                 @endif
-            </div>                            
+            </div>
             <div class="col-md-4">
                 <a href="{{ url("produto/$row->codproduto") }}">
                     <strong>{{ $row->produto }}</strong>
@@ -121,7 +121,7 @@
                 @if(!empty($row->codsubgrupoproduto))
                 <div>
                     <strong>{{ $row->SubGrupoProduto->GrupoProduto->grupoproduto }} › {{ $row->SubGrupoProduto->subgrupoproduto }}</strong>
-                </div>    
+                </div>
                 @endif
                 <a href="{{ url("marca/$row->codmarca") }}">
                     {{ $row->Marca->marca }}
@@ -137,7 +137,7 @@
                         {{ $row->UnidadeMedida->sigla }}
                     </small>
                     @foreach ($row->ProdutoBarraS()->whereNull('codprodutoembalagem')->get() as $pb)
-                        <small class="col-md-8 pull-right text-muted"> 
+                        <small class="col-md-8 pull-right text-muted">
                             <div class="col-md-3">
                                 {{ $pb->barras}}
                             </div>
@@ -156,13 +156,13 @@
                 @endforeach
             </div>
         </div>
-      </div>    
+      </div>
     @endforeach
     @if (count($model) === 0)
         <h3>Nenhum registro encontrado!</h3>
-    @endif    
+    @endif
   </div>
-  <?php echo $model->appends(Request::all())->render();?>
+  <?php echo $model->appends(Request::all())->render(); ?>
 </div>
 @section('inscript')
 <style type="text/css">
@@ -185,19 +185,19 @@ $(document).ready(function() {
     $('ul.pagination').removeClass('hide');
     $('#produto-search').change(function() {
         this.submit();
-    });    
+    });
     $('#inativo').select2({
         allowClear:true,
         closeOnSelect:true
-    })<?php echo (app('request')->input('inativo') ? ".select2('val'," .app('request')->input('inativo').");" : ';'); ?>
+    })<?php echo (app('request')->input('inativo') ? ".select2('val'," . app('request')->input('inativo') . ");" : ';'); ?>
     $('#codtributacao').select2({
         allowClear:true,
         closeOnSelect:true
-    })<?php echo (app('request')->input('codtributacao') ? ".select2('val'," .app('request')->input('codtributacao').");" : ';'); ?>
+    })<?php echo (app('request')->input('codtributacao') ? ".select2('val'," . app('request')->input('codtributacao') . ");" : ';'); ?>
     $('#site').select2({
         allowClear:true,
         closeOnSelect:true
-    })<?php echo (app('request')->input('site') ? ".select2('val'," .app('request')->input('site').");" : ';'); ?>
+    })<?php echo (app('request')->input('site') ? ".select2('val'," . app('request')->input('site') . ");" : ';'); ?>
     $('#preco_de, #preco_ate').autoNumeric('init', {aSep:'.', aDec:',', altDec:'.' });
     $('#criacao_de, #criacao_ate, #alteracao_de, #alteracao_ate').datetimepicker({
         useCurrent: false,
@@ -219,15 +219,15 @@ $(document).ready(function() {
             markup    += "<span>" + item.descricao + "</span>";
             return markup;
         },
-        formatSelection:function(item) { 
-            return item.ncm + "&nbsp;" + item.descricao; 
+        formatSelection:function(item) {
+            return item.ncm + "&nbsp;" + item.descricao;
         },
         ajax:{
             url:baseUrl+"/ncm/ajax",
             dataType:'json',
             quietMillis:500,
-            data:function(term, page) { 
-                return {q: term}; 
+            data:function(term, page) {
+                return {q: term};
             },
             results:function(data, page) {
                 var more = (page * 20) < data.total;
@@ -244,7 +244,7 @@ $(document).ready(function() {
             });
         },
         width:'resolve'
-    });    
+    });
     $('#codmarca').select2({
         minimumInputLength:1,
         allowClear:true,
@@ -256,15 +256,15 @@ $(document).ready(function() {
             markup    += "</div>";
             return markup;
         },
-        formatSelection:function(item) { 
-            return item.marca; 
+        formatSelection:function(item) {
+            return item.marca;
         },
         ajax:{
             url:baseUrl+"/marca/ajax",
             dataType:'json',
             quietMillis:500,
-            data:function(term,page) { 
-                return {q: term}; 
+            data:function(term,page) {
+                return {q: term};
             },
             results:function(data,page) {
                 var more = (page * 20) < data.total;
@@ -281,7 +281,7 @@ $(document).ready(function() {
             });
         },
         width:'resolve'
-    });    
+    });
 });
 </script>
 @endsection
